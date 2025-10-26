@@ -1,10 +1,11 @@
-name: Python CI
+name: Python CI con Coverage
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -15,7 +16,9 @@ jobs:
           python-version: '3.x'
 
       - name: Instalar dependencias
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
 
-      - name: Ejecutar tests
-        run: pytest
+      - name: Ejecutar tests con cobertura
+        run: |
+          pytest --cov=app --cov-report=term-missing
